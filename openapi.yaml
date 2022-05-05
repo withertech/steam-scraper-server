@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  license:
+    name: GPL-3.0
+  title: Scraper
+  version: 1.0.0
+servers:
+- url: https://repo.withertech.com/scraper/api/
+security:
+- {}
+paths:
+  /scrape:
+    get:
+      operationId: scrape
+      parameters:
+      - description: name of the rom
+        explode: true
+        in: query
+        name: filename
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: md5 of the rom
+        explode: true
+        in: query
+        name: md5
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesResult'
+          description: Urls to the images for the rom
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+          description: unexpected error
+      summary: Scrapes a rom for steam rom manager from screenscraper.fr using name
+        of file and md5 sum
+      tags:
+      - scrape
+components:
+  schemas:
+    ImagesResult:
+      example:
+        images:
+          icon: https://openapi-generator.tech
+          logo: https://openapi-generator.tech
+          hero: https://openapi-generator.tech
+          tall: https://openapi-generator.tech
+          long: https://openapi-generator.tech
+        system: system
+        name: name
+      properties:
+        name:
+          title: name
+          type: string
+        system:
+          title: system
+          type: string
+        images:
+          $ref: '#/components/schemas/ImagesResult_images'
+      required:
+      - images
+      - name
+      - system
+      title: ImagesResult
+      type: object
+    ErrorResult:
+      properties:
+        code:
+          format: int32
+          title: code
+          type: integer
+        message:
+          title: message
+          type: string
+      required:
+      - code
+      - message
+      title: ErrorResult
+      type: object
+    ImagesResult_images:
+      example:
+        icon: https://openapi-generator.tech
+        logo: https://openapi-generator.tech
+        hero: https://openapi-generator.tech
+        tall: https://openapi-generator.tech
+        head: https://openapi-generator.tech
+      properties:
+        head:
+          format: uri
+          title: long
+          type: string
+        tall:
+          format: uri
+          title: tall
+          type: string
+        hero:
+          format: uri
+          title: hero
+          type: string
+        logo:
+          format: uri
+          title: logo
+          type: string
+        icon:
+          format: uri
+          title: icon
+          type: string
+      required:
+      - hero
+      - icon
+      - logo
+      - head
+      - tall
+      title: ImagesResult_images
+      type: object

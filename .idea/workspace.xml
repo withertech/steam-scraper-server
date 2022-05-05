@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="687aadbc-e72b-4e02-9083-f487fdf98ee1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../client/coverage/clover.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/coverage-final.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/block-navigation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/prettify.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/prettify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/sort-arrow-sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/sorter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/api.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/api/apis.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/api/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/api/scrapeApi.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/model/errorResult.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/model/imagesResult.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/model/imagesResultImages.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/model/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov-report/src/model/models.ts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/coverage/lcov.info" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/jest.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/test/api.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../openapitools.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.flake8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.openapi-generator-ignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.openapi-generator/FILES" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.openapi-generator/VERSION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/apis/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/apis/scrape_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/models/error_result.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/models/extra_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/models/images_result.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/models/images_result_images.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steam_scraper_server/security_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_scrape_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/api/apis.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/api/apis.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/api/scrapeApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/api/scrapeApi.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/model/errorResult.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/model/errorResult.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/model/imagesResult.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/model/imagesResult.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/model/imagesResultImages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/model/imagesResultImages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/model/models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/model/models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../postman/schemas/scraper.json" beforeDir="false" afterPath="$PROJECT_DIR$/../postman/schemas/scraper.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SteamScraper.dir/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SteamScraper.dir/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SteamScraper.dir/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SteamScraper.dir/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SteamScraper.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/OAIApiRouter.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/OAIApiRouter.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/OAIScrapeApiHandler.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/OAIScrapeApiHandler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIEnum.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIErrorResult.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIErrorResult.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIHelpers.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIHelpers.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIHttpFileElement.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIHttpFileElement.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIImagesResult.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIImagesResult.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIImagesResult_images.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIImagesResult_images.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/OAIObject.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requests/OAIScrapeApiRequest.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requests/OAIScrapeApiRequest.h" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Dockerfile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/README" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/setup.cfg" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/steam_scraper_server/apis/scrape_api.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/steam_scraper_server/main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/steam_scraper_server/models/images_result_images.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28hglYnNklTcTTqk93pyDvfQrKy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/witherking25/PycharmProjects/SteamScraper/server&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/steam-scraper-server" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="687aadbc-e72b-4e02-9083-f487fdf98ee1" name="Changes" comment="" />
+      <created>1651674383172</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651674383172</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
