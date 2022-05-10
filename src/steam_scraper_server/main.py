@@ -15,8 +15,8 @@ from steam_scraper_server.apis.scrape_api import router as ScrapeApiRouter
 
 app = FastAPI(
     title="Steam Scraper",
-    description="Scrapes roms from screenscraper.fr for steam-rom-manager",
-    version="1.0.0",
+    description="Api for using screenscraper.fr in steam rom manager",
+    version="1.0.0"
 )
 
 app.include_router(ScrapeApiRouter)
