@@ -1,21 +1,12 @@
 # coding: utf-8
-import datetime
-from os import path
 
-from fastapi import APIRouter, status, HTTPException, Query
-from fastapi import FastAPI, Depends, Cookie
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from passlib.hash import bcrypt
-from starlette.requests import Request
-from starlette.templating import Jinja2Templates
-
-from steam_scraper_server.models import extra_models
-from steam_scraper_server.models.error_result import ErrorResult
 import jwt
+from fastapi import APIRouter, status, HTTPException
+from fastapi import Depends, Cookie
 from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi_login import LoginManager
-from fastapi_login.exceptions import InvalidCredentialsException
+from passlib.hash import bcrypt
 
 import steam_scraper_server.db.user as user
 
