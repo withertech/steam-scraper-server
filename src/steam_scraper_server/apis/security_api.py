@@ -43,7 +43,7 @@ async def get_token(data: OAuth2PasswordRequestForm = Depends()):
 async def login(data: OAuth2PasswordRequestForm = Depends()):
     token = await get_token(data)
     resp = RedirectResponse(
-        url="/user",
+        url="/scraper/api/user",
         status_code=status.HTTP_302_FOUND)
     resp.set_cookie("token", token["access_token"])
     return resp
