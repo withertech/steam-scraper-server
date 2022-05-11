@@ -64,7 +64,7 @@ async def register(data: OAuth2PasswordRequestForm = Depends()):
         ))
     await user_obj.save()
     resp = RedirectResponse(
-        url="/login",
+        url="/scraper/api/login",
         status_code=status.HTTP_302_FOUND)
     return resp
 
