@@ -17,7 +17,8 @@ from tortoise.contrib.fastapi import register_tortoise
 app = FastAPI(
     title="Steam Scraper",
     description="Api for using screenscraper.fr in steam rom manager",
-    version="1.0.0"
+    version="1.0.0",
+    root_path="/scraper/api"
 )
 
 register_tortoise(
