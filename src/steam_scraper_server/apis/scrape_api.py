@@ -5,9 +5,8 @@ import os
 import subprocess
 from typing import Dict, List  # noqa: F401
 from urllib.parse import quote
-import fastapi
-import plyvel
-import requests
+
+import jwt
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -19,10 +18,12 @@ from fastapi import (  # noqa: F401
     Query,
     Response,
     Security,
-    status,
+    status, HTTPException,
 )
-from pydantic.networks import HttpUrl
 
+from steam_scraper_server.apis import security_api
+from steam_scraper_server.db.user import User
+from steam_scraper_server.db.rom import Rom, Media
 from steam_scraper_server.models.error_result import ErrorResult
 from steam_scraper_server.models.extra_models import TokenModel  # noqa: F401
 from steam_scraper_server.models.images_result import ImagesResult
@@ -44,13 +45,19 @@ router = APIRouter()
 async def scrape(
         filename: str = Query(None, description="name of the rom"),
         md5: str = Query(None, description="md5 of the rom"),
+        key: str = Depends(security_api.oauth2)
 ) -> ImagesResult | ErrorResult:
     try:
-        if not os.path.exists('/opt/scraper/platformdb/'):
-            os.makedirs('/opt/scraper/platformdb/')
-        db = plyvel.DB('/opt/scraper/platformdb/', create_if_missing=True)
-
-        if db.get(str.encode(md5)) is None:
+        payload = jwt.decode(key, security_api.SECRET, algorithms=["HS256"])
+        user_ = await User.get(username=payload.get("username"))
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Credentials"
+        )
+    md5 = md5.upper()
+    try:
+        if not (await Rom.exists(md5=md5)):
             for platform in ['3do', '3ds', 'amiga',
                              'amigacd32', 'amstradcpc', 'apple2', 'arcade',
                              'arcadia', 'astrocde', 'atari800', 'atari2600',
@@ -74,13 +81,14 @@ async def scrape(
                              'wonderswancolor', 'x68000', 'x1', 'zmachine',
                              'zx81', 'zxspectrum']:
                 folder = os.path.join('/opt/scraper/roms', platform)
-                rom = os.path.join(folder, filename)
+                print(folder)
+                rom_path = os.path.join(folder, filename)
                 if not os.path.exists(folder):
                     os.makedirs(folder)
-                with open(rom, 'w'):
+                with open(rom_path, 'w'):
                     pass
                 if runcmd([
-                    'SteamScraper',
+                    'Steamscraper',
                     '-p',
                     platform,
                     '-s',
@@ -91,23 +99,34 @@ async def scrape(
                     'us',
                     '--query',
                     'md5=' + md5,
-                    rom
+                    rom_path
                 ]).decode().find('Successfully processed games: 1') != -1:
-                    db.put(str.encode(md5), str.encode(platform))
+                    rom = await Rom.create(md5=md5, system=platform)
+                    await rom.save()
                     break
-                os.remove(rom)
+                os.remove(rom_path)
+        elif await Media.exists(md5=md5):
+            rom = await Rom.get(md5=md5)
+            media = await Media.get(md5=md5)
+            return ImagesResult(name=filename, system=rom.system, images=ImagesResultImages(
+                head=media.head,
+                tall=media.tall,
+                hero=media.hero,
+                logo=media.logo,
+                icon=media.icon
+            ))
         else:
-            platform = db.get(str.encode(md5)).decode()
-            folder = os.path.join('/opt/scraper/roms', platform)
-            rom = os.path.join(folder, filename)
+            rom = await Rom.get(md5=md5)
+            folder = os.path.join('/opt/scraper/roms', rom.system)
+            rom_path = os.path.join(folder, filename)
             if not os.path.exists(folder):
                 os.makedirs(folder)
-            with open(rom, 'w'):
+            with open(rom_path, 'w'):
                 pass
             runcmd([
-                'SteamScraper',
+                'Steamscraper',
                 '-p',
-                platform,
+                rom.system,
                 '-s',
                 'screenscraper',
                 '--lang',
@@ -116,44 +135,55 @@ async def scrape(
                 'us',
                 '--query',
                 'md5=' + md5,
-                rom
+                rom_path
             ])
-            os.remove(rom)
-        platform = db.get(str.encode(md5)).decode()
-        folder = os.path.join('/opt/scraper/roms', platform)
-        rom = os.path.join(folder, filename)
+            os.remove(rom_path)
+        rom = await Rom.get(md5=md5)
+        folder = os.path.join('/opt/scraper/roms', rom.system)
+        rom_path = os.path.join(folder, filename)
         if not os.path.exists(folder):
             os.makedirs(folder)
-        with open(rom, 'w'):
+        with open(rom_path, 'w'):
             pass
         runcmd([
-            'SteamScraper',
+            'Steamscraper',
             '-p',
-            platform,
+            rom.system,
             '--lang',
             'en',
             '--region',
             'us',
             '--query',
             'md5=' + md5,
-            rom
+            rom_path
         ])
-        os.remove(rom)
-        print()
-        res = ImagesResult(name=filename, system=db.get(str.encode(md5)).decode(), images=ImagesResultImages(
+        os.remove(rom_path)
+        media = await Media.create(
+            md5=md5,
             head=F"https://repo.withertech.com/scraper/images/"
-                 F"{platform}/steamgrids/{quote(os.path.splitext(filename)[0] + '.png')}",
+                 F"{rom.system}/steamgrids/{quote(os.path.splitext(filename)[0] + '.png')}",
             tall=F"https://repo.withertech.com/scraper/images/"
-                 F"{platform}/covers/{quote(os.path.splitext(filename)[0] + '.png')}",
+                 F"{rom.system}/covers/{quote(os.path.splitext(filename)[0] + '.png')}",
             hero=F"https://repo.withertech.com/scraper/images/"
-                 F"{platform}/heroes/{quote(os.path.splitext(filename)[0] + '.png')}",
+                 F"{rom.system}/heroes/{quote(os.path.splitext(filename)[0] + '.png')}",
             logo=F"https://repo.withertech.com/scraper/images/"
-                 F"{platform}/logos/{quote(os.path.splitext(filename)[0] + '.png')}",
+                 F"{rom.system}/logos/{quote(os.path.splitext(filename)[0] + '.png')}",
             icon=F"https://repo.withertech.com/scraper/images/"
-                 F"{platform}/icons/{quote(os.path.splitext(filename)[0] + '.png')}"
+                 F"{rom.system}/icons/{quote(os.path.splitext(filename)[0] + '.png')}"
+        )
+        await media.save()
+        res = ImagesResult(name=filename, system=rom.system, images=ImagesResultImages(
+            head=media.head,
+            tall=media.tall,
+            hero=media.hero,
+            logo=media.logo,
+            icon=media.icon
         ))
 
         return res
+    except HTTPException as e:
+        print(e)
+        return ErrorResult(code=e.status_code, message=e.detail)
     except RunCmdException as e:
         print(e)
         return ErrorResult(code=e.returncode, message=e.output)

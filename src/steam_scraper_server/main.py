@@ -10,8 +10,9 @@
 """
 
 from fastapi import FastAPI
-
-from steam_scraper_server.apis.scrape_api import router as ScrapeApiRouter
+import steam_scraper_server.apis.scrape_api as scrape_api
+import steam_scraper_server.apis.security_api as security_api
+from tortoise.contrib.fastapi import register_tortoise
 
 app = FastAPI(
     title="Steam Scraper",
@@ -19,4 +20,18 @@ app = FastAPI(
     version="1.0.0"
 )
 
-app.include_router(ScrapeApiRouter)
+register_tortoise(
+    app,
+    db_url="sqlite:///opt/scraper/db/db.sqlite3",
+    modules={
+        "models": [
+            "steam_scraper_server.db.user",
+            "steam_scraper_server.db.rom"
+        ]
+    },
+    generate_schemas=True,
+    add_exception_handlers=True
+)
+app.include_router(scrape_api.router)
+app.include_router(security_api.router)
+
