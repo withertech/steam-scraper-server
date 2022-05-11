@@ -14,11 +14,13 @@ import steam_scraper_server.apis.scrape_api as scrape_api
 import steam_scraper_server.apis.security_api as security_api
 from tortoise.contrib.fastapi import register_tortoise
 
+from steam_scraper_server import global_vars
+
 app = FastAPI(
     title="Steam Scraper",
     description="Api for using screenscraper.fr in steam rom manager",
     version="1.0.0",
-    root_path="/scraper/api"
+    root_path=global_vars.root_path
 )
 
 register_tortoise(

@@ -9,10 +9,11 @@ from fastapi.security import OAuth2PasswordRequestForm
 from passlib.hash import bcrypt
 
 import steam_scraper_server.db.user as user
+from steam_scraper_server import global_vars
 
 router = APIRouter()
 SECRET = "d2f66a381e1b266636d7d598a901197c2489b2e9d3614e73"
-oauth2 = OAuth2PasswordBearer(tokenUrl="/auth/token")
+oauth2 = OAuth2PasswordBearer(tokenUrl=F"{global_vars.root_path}/auth/token")
 
 
 @router.post(
@@ -43,7 +44,7 @@ async def get_token(data: OAuth2PasswordRequestForm = Depends()):
 async def login(data: OAuth2PasswordRequestForm = Depends()):
     token = await get_token(data)
     resp = RedirectResponse(
-        url="/scraper/api/user",
+        url=F"{global_vars.root_path}/user",
         status_code=status.HTTP_302_FOUND)
     resp.set_cookie("token", token["access_token"])
     return resp
@@ -64,7 +65,7 @@ async def register(data: OAuth2PasswordRequestForm = Depends()):
         ))
     await user_obj.save()
     resp = RedirectResponse(
-        url="/scraper/api/login",
+        url=F"{global_vars.root_path}/login",
         status_code=status.HTTP_302_FOUND)
     return resp
 
@@ -97,19 +98,19 @@ async def user_page(token: str = Cookie("none")):
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >{(await user.User_Pydantic.from_tortoise_orm(user_)).username}</h1> 
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/user/keys'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/user/keys'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Keys
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/user/delete'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/user/delete'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     DELETE
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Home
                 </button>
             </div>
@@ -159,7 +160,7 @@ async def keys_page(token: str = Cookie("none")):
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/user'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/user'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Back
                 </button>
             </div>
@@ -205,7 +206,7 @@ async def delete_page(token: str = Cookie("none")):
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Home
                 </button>
             </div>
@@ -234,7 +235,7 @@ async def authenticate_user(username: str, password: str):
     response_class=HTMLResponse
 )
 async def main_page():
-    return """
+    return F"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -248,19 +249,19 @@ async def main_page():
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >Steamscraper API</h1>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/login'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/login'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Login
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/register'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/register'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Register
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/scraper/api/docs'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='{global_vars.root_path}/docs'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Docs
                 </button>
             </div>
@@ -277,7 +278,7 @@ async def main_page():
     response_class=HTMLResponse
 )
 async def login_page():
-    return """
+    return F"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,7 +289,7 @@ async def login_page():
 </head>
 <body>
     <div class="flex p-4 m-6 justify-center">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/scraper/api/auth/login" >
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{global_vars.root_path}/auth/login" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >Login</h1>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
@@ -320,7 +321,7 @@ async def login_page():
     response_class=HTMLResponse
 )
 async def register_page():
-    return """
+    return F"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -331,7 +332,7 @@ async def register_page():
 </head>
 <body>
     <div class="flex p-4 m-6 justify-center">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/scraper/api/auth/register" >
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{global_vars.root_path}/auth/register" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >Register</h1>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
