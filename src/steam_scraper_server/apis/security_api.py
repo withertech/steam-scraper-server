@@ -97,19 +97,19 @@ async def user_page(token: str = Cookie("none")):
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >{(await user.User_Pydantic.from_tortoise_orm(user_)).username}</h1> 
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/user/keys'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/user/keys'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Keys
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/user/delete'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/user/delete'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     DELETE
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Home
                 </button>
             </div>
@@ -159,7 +159,7 @@ async def keys_page(token: str = Cookie("none")):
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/user'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/user'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Back
                 </button>
             </div>
@@ -205,7 +205,7 @@ async def delete_page(token: str = Cookie("none")):
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Home
                 </button>
             </div>
@@ -248,19 +248,19 @@ async def main_page():
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >Steamscraper API</h1>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/login'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/login'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Login
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/register'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/register'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Register
                 </button>
             </div>
             <br/>
             <div class="flex items-center justify-between">
-                <button onclick="window.location.href='/docs'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onclick="window.location.href='/scraper/api/docs'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Docs
                 </button>
             </div>
@@ -288,7 +288,7 @@ async def login_page():
 </head>
 <body>
     <div class="flex p-4 m-6 justify-center">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/auth/login" >
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/scraper/api/auth/login" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >Login</h1>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
@@ -331,7 +331,7 @@ async def register_page():
 </head>
 <body>
     <div class="flex p-4 m-6 justify-center">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/auth/register" >
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/scraper/api/auth/register" >
             <h1 class="block text-gray-700 text-lg font-bold mb-2" >Register</h1>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
