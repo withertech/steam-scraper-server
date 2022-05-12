@@ -20,7 +20,10 @@ from fastapi import (  # noqa: F401
     Security,
     status, HTTPException,
 )
+from jwt import InvalidSignatureError
+from tortoise.exceptions import DoesNotExist
 
+from steam_scraper_server import global_vars
 from steam_scraper_server.apis import security_api
 from steam_scraper_server.db.user import User
 from steam_scraper_server.db.rom import Rom, Media
@@ -48,13 +51,18 @@ async def scrape(
         key: str = Depends(security_api.oauth2)
 ) -> ImagesResult | ErrorResult:
     try:
-        payload = jwt.decode(key, security_api.SECRET, algorithms=["HS256"])
+        payload = jwt.decode(key, global_vars.AUTH_SECRET, algorithms=["HS256"])
         user_ = await User.get(username=payload.get("username"))
-    except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid Credentials"
-        )
+    except (DoesNotExist, InvalidSignatureError):
+        try:
+            payload = jwt.decode(jwt.decode(key, global_vars.SCRAPE_SECRET, algorithms=["HS256"]).get("token"),
+                                 global_vars.AUTH_SECRET, algorithms=["HS256"])
+            user_ = await User.get(username=payload.get("username"))
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid Credentials"
+            )
     md5 = md5.upper()
     try:
         if not (await Rom.exists(md5=md5)):

@@ -12,7 +12,6 @@ import steam_scraper_server.db.user as user
 from steam_scraper_server import global_vars
 
 router = APIRouter()
-SECRET = "d2f66a381e1b266636d7d598a901197c2489b2e9d3614e73"
 oauth2 = OAuth2PasswordBearer(tokenUrl=F"{global_vars.root_path}/auth/token")
 
 
@@ -30,7 +29,7 @@ async def get_token(data: OAuth2PasswordRequestForm = Depends()):
         )
     access_token = jwt.encode(
         payload={"username": user_obj.username},
-        key=SECRET
+        key=global_vars.AUTH_SECRET
     )
     user_obj.key = access_token
     await user_obj.save()
@@ -61,7 +60,7 @@ async def register(data: OAuth2PasswordRequestForm = Depends()):
         password_hash=bcrypt.hash(data.password),
         key=jwt.encode(
             payload={"username": data.username},
-            key=SECRET
+            key=global_vars.AUTH_SECRET
         ))
     await user_obj.save()
     resp = RedirectResponse(
@@ -77,7 +76,7 @@ async def register(data: OAuth2PasswordRequestForm = Depends()):
 )
 async def user_page(token: str = Cookie("none")):
     try:
-        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        payload = jwt.decode(token, global_vars.AUTH_SECRET, algorithms=["HS256"])
         user_ = await user.User.get(username=payload.get("username"))
     except Exception:
         raise HTTPException(
@@ -130,13 +129,14 @@ async def user_page(token: str = Cookie("none")):
 )
 async def keys_page(token: str = Cookie("none")):
     try:
-        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        payload = jwt.decode(token, global_vars.AUTH_SECRET, algorithms=["HS256"])
         user_ = await user.User.get(username=payload.get("username"))
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid Credentials"
         )
+    key = jwt.encode(payload={"token": (await user.User_Pydantic.from_tortoise_orm(user_)).key}, key=global_vars.SCRAPE_SECRET)
     resp = HTMLResponse(F"""
         <!DOCTYPE html>
 <html lang="en">
@@ -154,9 +154,14 @@ async def keys_page(token: str = Cookie("none")):
                 <label class="block text-gray-700 text-sm font-bold mb-2">
                     Key:
                 </label>
-                <label class="block text-gray-700 text-sm mb-2">
-                    {(await user.User_Pydantic.from_tortoise_orm(user_)).key}
-                </label>
+                <div style="width:800px;overflow:auto">
+                    <pre class="block text-gray-700 text-sm mb-2">{key}</pre>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button onclick="copyKey()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Copy
+                    </button>
+                </div>
             </div>
             <br/>
             <div class="flex items-center justify-between">
@@ -166,6 +171,12 @@ async def keys_page(token: str = Cookie("none")):
             </div>
         </div>
     </div>
+    <script>
+        function copyKey() {{
+            navigator.clipboard.writeText
+                ("{key}");
+        }}
+    </script>
 </body>
 </html>
         """)
@@ -180,7 +191,7 @@ async def keys_page(token: str = Cookie("none")):
 )
 async def delete_page(token: str = Cookie("none")):
     try:
-        payload = jwt.decode(token, SECRET, algorithms=["HS256"])
+        payload = jwt.decode(token, global_vars.AUTH_SECRET, algorithms=["HS256"])
         user_ = await user.User.get(username=payload.get("username"))
     except Exception:
         raise HTTPException(
